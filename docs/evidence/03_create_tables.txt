@@ -1,3 +1,4 @@
-theauditor/indexer/schemas/utils.py:90:statement
-theauditor/indexer/schemas/utils.py:123:IF
-TOTAL=2
+/workspace/theauditor/indexer/database/base_database.py:119:    def create_schema(self) -> None:
+/workspace/theauditor/indexer/schemas/utils.py:89:    def create_table_sql(self) -> str:
+/workspace/theauditor/indexer/schemas/utils.py:90:        """Generate CREATE TABLE statement."""
+/workspace/theauditor/indexer/schemas/utils.py:123:        return f"CREATE TABLE IF NOT EXISTS {self.name} (\n    " + ",\n    ".join(col_defs) + "\n)"

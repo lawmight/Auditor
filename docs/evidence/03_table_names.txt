@@ -1,4 +1,3 @@
-analysis_results
 angular_component_styles
 angular_components
 angular_guards
@@ -56,7 +55,6 @@ docker_images
 dockerfile_env_vars
 dockerfile_instructions
 dockerfile_ports
-edges
 env_var_usage
 express_middleware_chains
 files
@@ -121,7 +119,6 @@ import_styles
 jwt_patterns
 lock_analysis
 nginx_configs
-nodes
 object_literals
 orm_queries
 orm_relationships
@@ -232,4 +229,4 @@ vue_components
 vue_directives
 vue_hooks
 vue_provide_inject
-COUNT=234
+COUNT=231

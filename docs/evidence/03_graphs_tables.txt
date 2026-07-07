@@ -1,0 +1,5 @@
+nodes
+edges
+analysis_results
+COUNT=3
+graphs.db ONLY (not in schema.TABLES)
