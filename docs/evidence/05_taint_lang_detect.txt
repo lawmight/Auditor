@@ -1,0 +1,24 @@
+theauditor/taint/flow_resolver.py:96:    def _get_language_for_file(self, file_path: str) -> str:
+theauditor/taint/flow_resolver.py:97:        """Detect language from file extension."""
+theauditor/taint/flow_resolver.py:102:        if lower.endswith(".py"):
+theauditor/taint/flow_resolver.py:104:        elif lower.endswith((".js", ".ts", ".jsx", ".tsx", ".mjs", ".cjs")):
+theauditor/taint/flow_resolver.py:106:        elif lower.endswith(".rs"):
+theauditor/taint/flow_resolver.py:111:        """Get request field patterns for a file's language."""
+theauditor/taint/flow_resolver.py:119:        lang = self._get_language_for_file(file_path)
+theauditor/taint/flow_resolver.py:869:    def _get_language_for_file(self, file_path: str) -> str:
+theauditor/taint/flow_resolver.py:870:        """Detect language from file extension."""
+theauditor/taint/flow_resolver.py:874:        if lower.endswith(".py"):
+theauditor/taint/flow_resolver.py:876:        elif lower.endswith((".js", ".ts", ".jsx", ".tsx", ".mjs", ".cjs")):
+theauditor/taint/flow_resolver.py:878:        elif lower.endswith(".rs"):
+theauditor/taint/flow_resolver.py:884:        lang = self._get_language_for_file(file_path) if file_path else None
+theauditor/taint/ifds_analyzer.py:454:    def _get_language_for_file(self, file_path: str) -> str:
+theauditor/taint/ifds_analyzer.py:455:        """Detect language from file extension."""
+theauditor/taint/ifds_analyzer.py:460:        if lower.endswith(".py"):
+theauditor/taint/ifds_analyzer.py:462:        elif lower.endswith((".js", ".ts", ".jsx", ".tsx", ".mjs", ".cjs")):
+theauditor/taint/ifds_analyzer.py:464:        elif lower.endswith(".rs"):
+theauditor/taint/ifds_analyzer.py:498:        lang = self._get_language_for_file(file_path)
+theauditor/taint/ifds_analyzer.py:593:        FIX #19: Pass language to registry.is_sanitizer() so it checks
+theauditor/taint/ifds_analyzer.py:594:        language-specific sanitizers (e.g., 'javascript'), not just 'global'.
+theauditor/taint/ifds_analyzer.py:598:        lang = self._get_language_for_file(file_path) if file_path else None
+theauditor/taint/ifds_analyzer.py:631:                    lang = self._get_language_for_file(hop_file)
+theauditor/taint/ifds_analyzer.py:668:                    if (san["file"].endswith(hop_file) or hop_file.endswith(san["file"])) and abs(

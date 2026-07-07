@@ -1,0 +1,15 @@
+theauditor/taint/ifds_analyzer.py:474:                "NO FALLBACKS. Initialize IFDSTaintAnalyzer with type_resolver parameter."
+theauditor/taint/ifds_analyzer.py:495:                "NO FALLBACKS. Initialize IFDSTaintAnalyzer with registry parameter."
+theauditor/taint/ifds_analyzer.py:611:            raise ValueError("Registry is MANDATORY. NO FALLBACKS.")
+theauditor/taint/flow_resolver.py:116:                "NO FALLBACKS. Initialize FlowResolver with registry parameter."
+theauditor/taint/flow_resolver.py:721:            raise ValueError("Registry is MANDATORY. NO FALLBACKS.")
+theauditor/taint/flow_resolver.py:900:            raise ValueError("Registry is MANDATORY. NO FALLBACKS.")
+theauditor/taint/core.py:399:                f"NO FALLBACKS - Flow resolution requires pre-computed graphs."
+theauditor/taint/core.py:444:                f"NO FALLBACKS - Flow resolution requires pre-computed graphs."
+theauditor/taint/core.py:459:                "NO FALLBACKS ALLOWED."
+theauditor/taint/core.py:468:            "NO FALLBACKS ALLOWED."
+theauditor/taint/core.py:544:            except Exception as e:
+theauditor/taint/core.py:619:                f"NO FALLBACKS - Taint analysis requires pre-computed graphs."
+theauditor/taint/core.py:970:    except Exception as e:
+theauditor/taint/discovery.py:519:        """Get vulnerability type from registry. NO FALLBACKS."""
+theauditor/taint/discovery.py:521:            raise ValueError("Registry is MANDATORY. NO FALLBACKS.")

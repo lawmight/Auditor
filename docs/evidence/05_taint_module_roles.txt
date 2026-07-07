@@ -1,0 +1,10 @@
+module	role	lines
+__init__.py	exports TaintRegistry, trace_taint, IFDSTaintAnalyzer, TaintDiscovery, TaintPath	23
+core.py	TaintRegistry + trace_taint modes backward/forward/complete	1057
+discovery.py	DB/cache source/sink/sanitizer discovery	631
+flow_resolver.py	forward DFS entry->exit onto resolved_flow_audit	1001
+ifds_analyzer.py	IFDS backward demand-driven sink->source	682
+fidelity.py	manifest/reconcile checkpoints for discovery/analysis/db	212
+access_path.py	field-sensitive AccessPath node IDs	136
+type_resolver.py	ORM model identity + controller file helper (docstring says Polyglot)	125
+taint_path.py	TaintPath result model	79
