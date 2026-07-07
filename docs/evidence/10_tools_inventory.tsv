@@ -1,0 +1,7 @@
+tool	class	file	language_extensions
+ruff	RuffLinter	ruff.py	.py
+mypy	MypyLinter	mypy.py	.py
+eslint	EslintLinter	eslint.py	.js .jsx .ts .tsx .mjs
+clippy	ClippyLinter	clippy.py	.rs
+golangci-lint	GolangciLinter	golangci.py	.go
+shellcheck	ShellcheckLinter	shellcheck.py	.sh .bash

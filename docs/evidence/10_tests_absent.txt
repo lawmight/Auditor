@@ -1,0 +1,3 @@
+rg LinterOrchestrator|RuffLinter|EslintLinter under *test*: 0 hits
+No tests/ tree with lint integration coverage in this snapshot.
+Runtime aud lint NOT executable: CLI import NameError RichRenderer (see evidence/01_cli_import_error.txt).

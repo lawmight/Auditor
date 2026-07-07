@@ -7,5 +7,7 @@ theauditor/linters/eslint.py	229
 theauditor/linters/golangci.py	124
 theauditor/linters/linters.py	178
 theauditor/linters/mypy.py	211
+theauditor/linters/package.json	19
+theauditor/linters/pyproject_template.toml	144
 theauditor/linters/ruff.py	98
 theauditor/linters/shellcheck.py	125

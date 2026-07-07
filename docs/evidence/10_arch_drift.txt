@@ -1,0 +1,25 @@
+ARCHITECTURE DRIFT vs CODE (07_linters.md)
+
+CLAIM: Results JSON .pf/raw/lint.json
+CODE: No lint.json writer in theauditor/linters or commands/lint.py
+STATUS: STALE (removed per openspec 2025-12-09-remove-raw-json-outputs)
+
+CLAIM: LinterResult.elapsed
+CODE: LinterResult.duration (base.py:83)
+STATUS: FIELD NAME DRIFT
+
+CLAIM: 6 linters (ruff mypy eslint clippy golangci shellcheck)
+CODE: Same 6 classes exported in __init__.py
+STATUS: MATCH
+
+CLAIM: lint.py print_plan lists ESLint, Ruff, Mypy only
+CODE: lint.py:47 tools_run hardcoded 3 while orchestrator can run 6
+STATUS: CLI HELP / STATS DRIFT (docs claim black/pylint/bandit/hadolint not implemented)
+
+CLAIM: Finding schema matches Architecture block
+CODE: Finding has category + additional_info; Arch omits them
+STATUS: MINOR DOC DRIFT
+
+MAX_CMD_LENGTH:
+Architecture says 8191; eslint.py MAX_CMD_LENGTH = 8000
+STATUS: NUMERIC DRIFT

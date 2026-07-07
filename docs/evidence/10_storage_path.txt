@@ -1,0 +1,35 @@
+STORAGE PATH (static review 2026-07-07)
+
+1. File list source:
+   LinterOrchestrator._get_all_source_files
+   SELECT path, ext FROM files WHERE file_category = 'source' ORDER BY path
+   Database: .pf/repo_index.db via DatabaseManager
+   Evidence: theauditor/linters/linters.py:163-178
+
+2. Orchestration:
+   run_all_linters -> asyncio.run(_run_async)
+   Queues: eslint, ruff, mypy, clippy, golangci-lint, shellcheck when file sets non-empty
+   Parallel: asyncio.gather(*tasks, return_exceptions=True)
+   Evidence: theauditor/linters/linters.py:60-161
+
+3. Config prep:
+   ConfigGenerator(root, db_path).prepare_configs() before ESLint when js_files present
+   Mypy uses ConfigGenerator.generate_python_config via .pf/repo_index.db
+   Evidence: linters.py:100-104, mypy.py:81-90
+
+4. Persist findings:
+   findings_dicts = [f.to_dict() for f in all_findings]
+   self.db.write_findings_batch(findings_dicts, "lint")
+   DatabaseManager.write_findings_batch INSERT INTO findings_consolidated
+   Batch tool_name param is "lint" but Finding.tool keeps per-linter name (ruff/eslint/...)
+   Evidence: linters.py:155-159, indexer/database/base_database.py:669-840
+
+5. JSON output:
+   No _write_json_output in theauditor/linters/
+   No lint.json writes under theauditor/**/*.py (rg zero matches)
+   Architecture/07_linters.md still claims .pf/raw/lint.json (STALE)
+   commands/lint.py output_files: [] and documents findings_consolidated only
+
+6. CLI entry:
+   theauditor/commands/lint.py -> LinterOrchestrator(root, .pf/repo_index.db)
+   Pipeline Track B: ("lint", ["--workset"]) at pipelines.py:532
