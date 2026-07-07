@@ -28,3 +28,4 @@ ts	phase	decision	why	evidence	result
 2026-07-07T21:59:38Z	verify	cross-model trail review unavailable (no Task spawn)	show-me-your-work requires other model family; self-audit of log done instead	docs/decisions.tsv	INCONCLUSIVE
 2026-07-07T21:59:53Z	phase-e	wrote ATTENTION.md self-audit of trail	show-me-your-work audit + missing cross-model flagged	docs/ATTENTION.md	logged
 2026-07-07T22:00:35Z	phase-e	force-added docs/ despite root gitignore	repo gitignores docs/; review deliverable must land in PR	.gitignore:74	documented
+2026-07-07T22:44:42Z	agent-05	rewrote 05-taint.md with IFDS/sources/polyglot claim audit	static map vs README; keyword evidence refreshed	docs/agents/05-taint.md + docs/evidence/05_*	VERIFIED

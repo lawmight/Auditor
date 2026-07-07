@@ -8,3 +8,4 @@ theauditor/taint/flow_resolver.py	1001
 theauditor/taint/ifds_analyzer.py	682
 theauditor/taint/taint_path.py	79
 theauditor/taint/type_resolver.py	125
+TOTAL	3946
