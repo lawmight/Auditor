@@ -1,0 +1,12 @@
+32:    "fce": 900,
+548:            ("fce", []),
+632:                elif cmd_name == "fce":
+744:            elif "fce" in cmd_str or "session" in cmd_str or "learn" in cmd_str:
+791:                "[dim]Skipping: Track A (taint), Track B (patterns, lint), Track C (network), Stage 4 (fce, report)[/dim]"
+795:                "  Skipping: Track A (taint), Track B (patterns, lint), Track C (network), Stage 4 (fce, report)"
+1571:                is_fce = "factual correlation" in phase_name.lower() or "fce" in " ".join(cmd)
+1573:                    fce_log_path = Path(root) / ".pf" / "fce.log"
+1574:                    renderer.on_log(f"[dim]Writing FCE output to[/dim] [cyan]{fce_log_path}[/cyan]")
+1575:                    log_lines.append(f"[INFO] Writing FCE output to: {fce_log_path}")
+1578:                        fce_log.write(f"FCE Execution Log - {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
+1589:                        stdout="FCE output written to [cyan].pf/fce.log[/cyan]",

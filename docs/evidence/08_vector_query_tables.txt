@@ -1,0 +1,15 @@
+vector detection tables actually queried in FCEQueryEngine:
+- findings_consolidated (STATIC excluding cfg/churn/graph tools; PROCESS via tool=churn-analysis; STRUCTURAL via tool=cfg-analysis)
+- taint_flows (FLOW via source_file OR sink_file)
+
+RISK_SOURCES registered but NOT used in vector detection queries:
+- cdk_findings
+- framework_taint_patterns
+- graphql_findings_cache
+- python_security_findings
+- terraform_findings
+
+Note: framework_taint_patterns listed in __init__ docstring as FLOW source but query.py only reads taint_flows.
+
+graphs.db: opened optionally in __init__; never queried for correlation.
+repo_index.db: required; all correlation queries run against it.

@@ -1,0 +1,10 @@
+theauditor/fce/query.py:54:graph_db_path = pf_dir / "graphs.db"
+theauditor/fce/query.py:55:if graph_db_path.exists():
+theauditor/fce/query.py:56:self.graph_db = sqlite3.connect(str(graph_db_path))
+theauditor/fce/query.py:57:self.graph_db.execute("PRAGMA journal_mode=WAL;")
+theauditor/fce/query.py:58:self.graph_db.execute("PRAGMA synchronous=NORMAL;")
+theauditor/fce/query.py:59:self.graph_db.execute("PRAGMA cache_size=-64000;")
+theauditor/fce/query.py:60:self.graph_db.row_factory = sqlite3.Row
+theauditor/fce/query.py:62:self.graph_db = None
+theauditor/fce/query.py:435:if self.graph_db:
+theauditor/fce/query.py:436:self.graph_db.close()

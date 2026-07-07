@@ -1,0 +1,8 @@
+RISK_SOURCES=['cdk_findings', 'findings_consolidated', 'framework_taint_patterns', 'graphql_findings_cache', 'python_security_findings', 'taint_flows', 'terraform_findings']
+RISK_SOURCES_count=7
+CONTEXT_PROCESS=4
+CONTEXT_STRUCTURAL=6
+CONTEXT_FRAMEWORK=36
+CONTEXT_SECURITY=6
+CONTEXT_LANGUAGE=88
+total_approx=147

@@ -1,0 +1,5 @@
+Architecture/05_fce.md write-related lines:
+aud fce --write            # Save to .pf/raw/fce.json
+
+code --write / fce.json hits:
+theauditor/fce/formatter.py:23:This class handles JSON serialization for --format json and --write modes.

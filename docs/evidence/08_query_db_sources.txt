@@ -1,0 +1,46 @@
+37:            FileNotFoundError: If repo_index.db doesn't exist
+43:        repo_db_path = pf_dir / "repo_index.db"
+54:        graph_db_path = pf_dir / "graphs.db"
+56:            self.graph_db = sqlite3.connect(str(graph_db_path))
+57:            self.graph_db.execute("PRAGMA journal_mode=WAL;")
+58:            self.graph_db.execute("PRAGMA synchronous=NORMAL;")
+59:            self.graph_db.execute("PRAGMA cache_size=-64000;")
+60:            self.graph_db.row_factory = sqlite3.Row
+62:            self.graph_db = None
+98:        cursor.execute("SELECT file, tool FROM findings_consolidated")
+104:            if tool == "cfg-analysis":
+105:                index[file_path].add(Vector.STRUCTURAL)
+106:            elif tool == "churn-analysis":
+107:                index[file_path].add(Vector.PROCESS)
+108:            elif tool != "graph-analysis":
+109:                index[file_path].add(Vector.STATIC)
+111:        cursor.execute("SELECT source_file, sink_file FROM taint_flows")
+114:                index[row["source_file"]].add(Vector.FLOW)
+116:                index[row["sink_file"]].add(Vector.FLOW)
+124:        - cfg-analysis (STRUCTURAL vector)
+125:        - churn-analysis (PROCESS vector)
+126:        - graph-analysis (not a findings source)
+132:            SELECT 1 FROM findings_consolidated
+134:              AND tool NOT IN ('cfg-analysis', 'churn-analysis', 'graph-analysis')
+147:            SELECT 1 FROM taint_flows
+161:            SELECT 1 FROM findings_consolidated
+162:            WHERE file = ? AND tool = 'churn-analysis'
+175:            SELECT 1 FROM findings_consolidated
+176:            WHERE file = ? AND tool = 'cfg-analysis'
+195:            vectors.add(Vector.STATIC)
+197:            vectors.add(Vector.FLOW)
+199:            vectors.add(Vector.PROCESS)
+201:            vectors.add(Vector.STRUCTURAL)
+210:        - findings_consolidated (STATIC, PROCESS, STRUCTURAL vectors)
+211:        - taint_flows (FLOW vector)
+220:            FROM findings_consolidated
+230:            if tool == "cfg-analysis":
+231:                vector = Vector.STRUCTURAL
+232:            elif tool == "churn-analysis":
+233:                vector = Vector.PROCESS
+235:                vector = Vector.STATIC
+256:            FROM taint_flows
+268:                    vector=Vector.FLOW,
+269:                    source="taint_flows",
+435:        if self.graph_db:
+436:            self.graph_db.close()

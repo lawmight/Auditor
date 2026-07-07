@@ -1,0 +1,28 @@
+15:    Vector.STATIC: "STATIC",
+16:    Vector.FLOW: "FLOW",
+17:    Vector.PROCESS: "PROCESS",
+18:    Vector.STRUCTURAL: "STRUCTURAL",
+138:        for vector in [Vector.STATIC, Vector.FLOW, Vector.PROCESS, Vector.STRUCTURAL]:
+141:                    Vector.STATIC: "green",
+142:                    Vector.FLOW: "red",
+143:                    Vector.PROCESS: "yellow",
+144:                    Vector.STRUCTURAL: "magenta",
+185:@click.command(name="fce", cls=RichCommand)
+187:@click.option("--root", default=".", help="Root directory")
+188:@click.option(
+195:@click.option(
+201:@click.option("--detailed", is_flag=True, help="Show facts in text output")
+211:    The Four Vectors:
+212:      S = STATIC     Linters (ruff, eslint, patterns, bandit)
+213:      F = FLOW       Taint analysis (taint_flows, framework patterns)
+214:      P = PROCESS    Change history (churn-analysis, code_diffs)
+215:      T = STRUCTURAL Complexity (cfg-analysis)
+225:      (They're all STATIC - not independent signals)
+245:      - findings_consolidated (all linter findings)
+246:      - taint_flows (data flow vulnerabilities)
+247:      - cfg-analysis findings (complexity)
+248:      - churn-analysis findings (change volatility)
+259:      Input: .pf/repo_index.db (findings_consolidated, taint_flows)
+266:      aud taint           # Populates FLOW vector
+267:      aud cfg analyze     # Populates STRUCTURAL vector
+268:      aud detect-patterns # Populates STATIC vector"""
