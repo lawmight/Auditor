@@ -1,8 +1,12 @@
-path	lines
-theauditor/context/__init__.py	22
-theauditor/context/deadcode_graph.py	761
-theauditor/context/explain_formatter.py	474
-theauditor/context/findings_formatter.py	329
-theauditor/context/formatters.py	435
-theauditor/context/query.py	1890
-theauditor/context/semantic_context.py	573
+/workspace/theauditor/context/deadcode_graph.py	761
+/workspace/theauditor/context/explain_formatter.py	474
+/workspace/theauditor/context/findings_formatter.py	329
+/workspace/theauditor/context/formatters.py	435
+/workspace/theauditor/context/__init__.py	22
+/workspace/theauditor/context/query.py	1890
+/workspace/theauditor/context/semantic_context.py	573
+/workspace/theauditor/context/semantic_rules/README_semantic.md	85
+/workspace/theauditor/context/semantic_rules/templates_instructions.md	154
+/workspace/theauditor/context/semantic_rules/template.yaml	95
+TOTAL_CONTEXT_FILES	10
+  4818 total

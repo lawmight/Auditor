@@ -1,0 +1,3 @@
+helpers ok
+query import FAIL: NameError name 'SemanticContext' is not defined
+semantic FAIL: NameError name 'SemanticContext' is not defined

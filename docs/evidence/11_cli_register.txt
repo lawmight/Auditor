@@ -1,0 +1,14 @@
+72:            "commands": ["explain", "query", "impact", "refactor"],
+269:        if sections.get("ai_assistant_context"):
+271:                sections["ai_assistant_context"].strip(),
+390:    def make_context(self, info_name, args, parent=None, **extra):
+393:            return super().make_context(info_name, args, parent, **extra)
+415:from theauditor.commands.context import context_command
+416:from theauditor.commands.deadcode import deadcode
+422:from theauditor.commands.explain import explain
+433:from theauditor.commands.query import query
+473:cli.add_command(deadcode)
+481:cli.add_command(query)
+482:cli.add_command(explain)
+485:cli.add_command(context_command, name="context")
+496:@click.pass_context

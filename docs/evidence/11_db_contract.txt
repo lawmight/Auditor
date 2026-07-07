@@ -1,0 +1,20 @@
+80:        repo_db_path = pf_dir / "repo_index.db"
+82:            raise FileNotFoundError(
+93:        graph_db_path = pf_dir / "graphs.db"
+94:        if graph_db_path.exists():
+95:            self.graph_db = sqlite3.connect(str(graph_db_path))
+96:            self.graph_db.execute("PRAGMA journal_mode=WAL;")
+97:            self.graph_db.execute("PRAGMA synchronous=NORMAL;")
+98:            self.graph_db.execute("PRAGMA cache_size=-64000;")
+99:            self.graph_db.row_factory = sqlite3.Row
+101:            self.graph_db = None
+107:    def _require_graph_db(self) -> None:
+110:        Zero Fallback Policy: If graph_db is required but missing, CRASH.
+113:        if not self.graph_db:
+420:        self._require_graph_db()
+422:        cursor = self.graph_db.cursor()
+1359:        self._require_graph_db()
+1361:        cursor = self.graph_db.cursor()
+1450:        "FileNotFoundError",
+1889:        if self.graph_db:
+1890:            self.graph_db.close()

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/workspace/theauditor/context/__init__.py", line 5, in <module>
+    from theauditor.context.semantic_context import (
+  File "/workspace/theauditor/context/semantic_context.py", line 145, in <module>
+    class SemanticContext:
+  File "/workspace/theauditor/context/semantic_context.py", line 161, in SemanticContext
+    def load(cls, yaml_path: Path) -> SemanticContext:
+                                      ^^^^^^^^^^^^^^^
+NameError: name 'SemanticContext' is not defined

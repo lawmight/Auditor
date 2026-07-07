@@ -1,0 +1,6 @@
+/workspace/Architecture/10_context.md
+/workspace/Architecture/11_session.md
+/workspace/Architecture/features/03_context.md
+/workspace/Architecture/features/06_explain.md
+/workspace/Architecture/features/11_agents.md
+/workspace/Architecture/features/12_query.md

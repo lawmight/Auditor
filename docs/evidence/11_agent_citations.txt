@@ -1,0 +1,18 @@
+/workspace/Architecture/features/11_agents.md:58:aud query --file theauditor/module.py --list functions
+/workspace/Architecture/features/11_agents.md:59:aud query --symbol function_name --show-callers
+/workspace/Architecture/features/11_agents.md:69:| Get comprehensive context | `aud explain <target>` |
+/workspace/Architecture/features/11_agents.md:72:| List functions in file | `aud query --file X --list functions` |
+/workspace/Architecture/features/11_agents.md:73:| Find callers | `aud query --symbol X --show-callers` |
+/workspace/Architecture/features/11_agents.md:92:  - aud query --file/symbol X
+/workspace/Architecture/features/11_agents.md:123:2. Use `aud query` instead of reading files
+/workspace/Architecture/features/11_agents.md:141:| Read 2000 lines to find functions | `aud query --file X --list functions` |
+/workspace/Architecture/features/11_agents.md:143:| Assume callers exist | `aud query --symbol X --show-callers` (exact) |
+/workspace/theauditor/agents/AGENTS.md:28:aud query --file X          # INSTEAD OF reading files
+/workspace/theauditor/agents/AGENTS.md:63:| `aud context --file X` | Semantic rules (obsolete/current patterns) | `aud manual context` |
+/workspace/theauditor/agents/AGENTS.md:69:   aud query --pattern "%product%"
+/workspace/theauditor/agents/AGENTS.md:92:| List symbols in file | `aud query --file X --list all` |
+/workspace/theauditor/agents/AGENTS.md:93:| Who calls this? | `aud query --symbol X --show-callers` |
+/workspace/theauditor/agents/AGENTS.md:94:| What does this call? | `aud query --symbol X --show-callees` |
+/workspace/theauditor/agents/AGENTS.md:100:| Full context for file | `aud explain path/to/file.py` |
+/workspace/theauditor/agents/AGENTS.md:101:| Full context for symbol | `aud explain SymbolName` |
+/workspace/theauditor/agents/AGENTS.md:169:- aud query: 45 functions, 12 python-prefixed (27%)

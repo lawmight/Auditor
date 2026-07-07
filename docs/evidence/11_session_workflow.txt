@@ -1,0 +1,4 @@
+30:        "query_before_edit": "Use aud query before editing",
+47:            "query_before_edit": self._check_query_usage(tool_sequence),
+95:        """Check if aud query was used before editing."""
+99:                if "aud query" in command or "aud context" in command:

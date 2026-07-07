@@ -1,0 +1,6 @@
+113:        if not self.graph_db:
+1045:            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='function_call_args_jsx'")
+1082:        cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+1083:        existing_tables = {row[0] for row in cursor.fetchall()}
+1100:            if table not in existing_tables:
+1130:        # Symbol search as fallback

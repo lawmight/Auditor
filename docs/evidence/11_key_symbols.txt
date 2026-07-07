@@ -1,0 +1,13 @@
+/workspace/theauditor/commands/context.py:250:            SELECT name FROM sqlite_master
+/workspace/theauditor/commands/explain.py:49:def detect_target_type(target: str, engine: CodeQueryEngine) -> str:
+/workspace/theauditor/context/semantic_context.py:14:class ContextPattern:
+/workspace/theauditor/context/semantic_context.py:145:class SemanticContext:
+/workspace/theauditor/context/query.py:71:class CodeQueryEngine:
+/workspace/theauditor/context/query.py:107:    def _require_graph_db(self) -> None:
+/workspace/theauditor/context/query.py:141:    def _resolve_symbol(self, input_name: str) -> tuple[list[str], str | None]:
+/workspace/theauditor/context/query.py:1045:            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='function_call_args_jsx'")
+/workspace/theauditor/context/query.py:1082:        cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+/workspace/theauditor/context/query.py:1804:    def get_file_context_bundle(
+/workspace/theauditor/context/query.py:1833:    def get_symbol_context_bundle(self, symbol_name: str, limit: int = 20, depth: int = 1) -> dict:
+/workspace/theauditor/context/deadcode_graph.py:166:        cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='edges'")
+/workspace/theauditor/context/deadcode_graph.py:183:        cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='nodes'")

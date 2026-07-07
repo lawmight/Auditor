@@ -1,0 +1,6 @@
+/workspace/Architecture/10_context.md:133:- Callers (transitive depth 1-5)
+/workspace/theauditor/context/query.py:309:        if depth < 1 or depth > 5:
+/workspace/theauditor/context/query.py:310:            raise ValueError("Depth must be between 1 and 5")
+/workspace/theauditor/context/query.py:604:    def trace_variable_flow(self, var_name: str, from_file: str, depth: int = 10) -> list[dict]:
+/workspace/theauditor/context/query.py:608:        if depth < 1 or depth > 10:
+/workspace/theauditor/context/query.py:609:            raise ValueError("Depth must be between 1 and 10")
