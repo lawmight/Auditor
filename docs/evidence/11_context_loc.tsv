@@ -1,0 +1,8 @@
+path	lines
+theauditor/context/__init__.py	22
+theauditor/context/deadcode_graph.py	761
+theauditor/context/explain_formatter.py	474
+theauditor/context/findings_formatter.py	329
+theauditor/context/formatters.py	435
+theauditor/context/query.py	1890
+theauditor/context/semantic_context.py	573

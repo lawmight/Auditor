@@ -1,0 +1,8 @@
+label	count
+bare-except	1
+bare-except-Exception	36
+dict-get-fallbackish	266
+fallback-word	92
+getattr-default	51
+hasattr	172
+try-except-json-fallback	26

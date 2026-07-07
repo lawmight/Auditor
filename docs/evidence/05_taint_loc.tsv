@@ -1,0 +1,10 @@
+path	lines
+theauditor/taint/__init__.py	23
+theauditor/taint/access_path.py	136
+theauditor/taint/core.py	1057
+theauditor/taint/discovery.py	631
+theauditor/taint/fidelity.py	212
+theauditor/taint/flow_resolver.py	1001
+theauditor/taint/ifds_analyzer.py	682
+theauditor/taint/taint_path.py	79
+theauditor/taint/type_resolver.py	125

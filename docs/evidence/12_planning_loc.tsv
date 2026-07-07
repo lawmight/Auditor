@@ -1,0 +1,5 @@
+path	lines
+theauditor/planning/__init__.py	6
+theauditor/planning/manager.py	433
+theauditor/planning/shadow_git.py	233
+theauditor/planning/verification.py	56

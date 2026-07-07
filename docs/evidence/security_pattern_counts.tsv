@@ -1,0 +1,9 @@
+pattern	count
+eval\(	16
+exec\(	8
+mktemp	2
+os\.system\(	4
+pickle\.(loads|load)	9
+shell\s*=\s*True	11
+subprocess\.(run|Popen|call|check_)	46
+tempfile\.	6

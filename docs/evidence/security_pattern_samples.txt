@@ -1,0 +1,74 @@
+## eval\(
+theauditor/session/diff_scorer.py:99
+theauditor/commands/manual_lib01.py:1459
+theauditor/commands/taint.py:72
+theauditor/rules/orm/sequelize_analyze.py:141
+theauditor/rules/xss/xss_analyze.py:291
+theauditor/rules/xss/xss_analyze.py:814
+theauditor/rules/frameworks/react_analyze.py:6
+theauditor/rules/frameworks/react_analyze.py:314
+theauditor/rules/frameworks/react_analyze.py:337
+theauditor/rules/frameworks/vue_analyze.py:5
+
+## exec\(
+theauditor/ast_extractors/python_impl.py:486
+theauditor/pipeline/pipelines.py:222
+theauditor/session/diff_scorer.py:99
+theauditor/commands/taint.py:72
+theauditor/linters/base.py:199
+theauditor/linters/eslint.py:179
+theauditor/ast_extractors/python/security_extractors.py:291
+theauditor/rules/sql/sql_injection_analyze.py:110
+
+## mktemp
+theauditor/rules/bash/dangerous_patterns_analyze.py:224
+theauditor/rules/bash/dangerous_patterns_analyze.py:232
+
+## os\.system\(
+theauditor/session/diff_scorer.py:97
+theauditor/commands/manual_lib01.py:45
+theauditor/commands/taint.py:72
+theauditor/commands/taint.py:73
+
+## pickle\.(loads|load)
+theauditor/rules/frameworks/fastapi_analyze.py:711
+theauditor/rules/frameworks/fastapi_analyze.py:712
+theauditor/rules/frameworks/flask_analyze.py:567
+theauditor/rules/frameworks/flask_analyze.py:569
+theauditor/rules/python/python_deserialization_analyze.py:31
+theauditor/rules/python/python_deserialization_analyze.py:32
+theauditor/rules/python/python_deserialization_analyze.py:39
+theauditor/rules/python/python_deserialization_analyze.py:40
+theauditor/rules/python/python_deserialization_analyze.py:489
+
+## shell\s*=\s*True
+theauditor/rules/frameworks/flask_analyze.py:797
+theauditor/rules/frameworks/flask_analyze.py:826
+theauditor/rules/frameworks/flask_analyze.py:826
+theauditor/rules/frameworks/flask_analyze.py:832
+theauditor/rules/frameworks/flask_analyze.py:847
+theauditor/rules/frameworks/flask_analyze.py:853
+theauditor/rules/python/python_injection_analyze.py:108
+theauditor/rules/python/python_injection_analyze.py:109
+theauditor/rules/python/python_injection_analyze.py:110
+theauditor/rules/python/python_injection_analyze.py:111
+
+## subprocess\.(run|Popen|call|check_)
+theauditor/venv_install.py:277
+theauditor/venv_install.py:308
+theauditor/venv_install.py:333
+theauditor/venv_install.py:715
+theauditor/venv_install.py:842
+theauditor/venv_install.py:877
+theauditor/venv_install.py:896
+theauditor/venv_install.py:1115
+theauditor/venv_install.py:1149
+theauditor/vulnerability_scanner.py:156
+
+## tempfile\.
+theauditor/ast_extractors/js_semantic_parser.py:180
+theauditor/ast_extractors/js_semantic_parser.py:183
+theauditor/ast_extractors/js_semantic_parser.py:323
+theauditor/ast_extractors/js_semantic_parser.py:327
+theauditor/ast_extractors/js_semantic_parser.py:513
+theauditor/ast_extractors/ast_parser.py:354

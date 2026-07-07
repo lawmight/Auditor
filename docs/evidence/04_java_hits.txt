@@ -1,0 +1,4 @@
+theauditor/ast_extractors/javascript
+theauditor/indexer/extractors/javascript.py
+theauditor/indexer/extractors/javascript_resolvers.py
+COUNT=3

@@ -1,0 +1,60 @@
+# TheAuditor Architecture
+
+A comprehensive polyglot security analysis platform with modular architecture for deep code understanding, vulnerability detection, and code context intelligence.
+
+---
+
+## System Overview
+
+```
+                                    USER INPUT
+                                         |
+                                         v
+                              +------------------+
+                              |   CLI Commands   |  (30+ commands, 9 categories)
+                              +------------------+
+                                         |
+                    +--------------------+--------------------+
+                    |                    |                    |
+                    v                    v                    v
+          +-----------------+   +-----------------+   +-----------------+
+          |    Pipeline     |   |     Query       |   |    Session      |
+          |  Orchestrator   |   |     System      |   |    Analyzer     |
+          +-----------------+   +-----------------+   +-----------------+
+                    |                    |                    |
+    +---------------+---------------+    |                    |
+    |               |               |    |                    |
+    v               v               v    v                    v
++-------+     +--------+     +---------+----+           +---------+
+|Indexer|---->|  AST   |---->|   Graph      |           | MachineL|
+|       |     |Extract |     |   Engine     |           |   (ML)  |
++-------+     +--------+     +------+-------+           +---------+
+    |               |               |                         ^
+    v               v               v                         |
++-------+     +--------+     +---------+                      |
+|Linters|     | Rules  |     |  Taint  |                      |
+|       |     |Orchestr|     | Engine  |                      |
++-------+     +--------+     +---------+                      |
+    |               |               |                         |
+    +-------+-------+-------+-------+                         |
+            |               |                                 |
+            v               v                                 |
+      +-----------+   +-----------+                           |
+      |    FCE    |   |  Context  |--------------------------+
+      | (Evidence)|   |   Query   |
+      +-----------+   +-----------+
+            |               |
+            v               v
+      +--------------------------+
+      |    SQLite Databases      |
+      |  repo_index.db (181MB)   |
+      |  graphs.db (126MB)       |
+      +--------------------------+
+```
+
+---
+
+## Core Design Principles
+
+| Principle | Description |
+|-----------|-------------|

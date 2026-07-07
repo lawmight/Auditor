@@ -1,0 +1,3 @@
+add-svelte-extraction
+add-sveltekit-routing
+archive

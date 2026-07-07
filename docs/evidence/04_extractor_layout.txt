@@ -1,0 +1,13 @@
+file:__init__.py:20
+file:ast_parser.py:550
+file:base.py:293
+file:bash_impl.py:1046
+file:go_impl.py:1371
+file:hcl_impl.py:176
+dir:javascript:26
+file:js_helper_templates.py:43
+file:js_semantic_parser.py:836
+file:module_resolver.py:198
+dir:python:31
+file:python_impl.py:1039
+file:rust_impl.py:2005

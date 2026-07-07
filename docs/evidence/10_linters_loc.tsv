@@ -1,0 +1,11 @@
+path	lines
+theauditor/linters/__init__.py	33
+theauditor/linters/base.py	220
+theauditor/linters/clippy.py	137
+theauditor/linters/config_generator.py	528
+theauditor/linters/eslint.py	229
+theauditor/linters/golangci.py	124
+theauditor/linters/linters.py	178
+theauditor/linters/mypy.py	211
+theauditor/linters/ruff.py	98
+theauditor/linters/shellcheck.py	125

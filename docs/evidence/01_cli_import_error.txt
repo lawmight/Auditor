@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/workspace/theauditor/cli.py", line 15, in <module>
+    from theauditor.pipeline.ui import console
+  File "/workspace/theauditor/pipeline/__init__.py", line 3, in <module>
+    from .pipelines import run_full_pipeline
+  File "/workspace/theauditor/pipeline/pipelines.py", line 15, in <module>
+    from .renderer import RichRenderer
+  File "/workspace/theauditor/pipeline/renderer.py", line 23, in <module>
+    class DynamicTable:
+  File "/workspace/theauditor/pipeline/renderer.py", line 26, in DynamicTable
+    def __init__(self, renderer: RichRenderer):
+                                 ^^^^^^^^^^^^
+NameError: name 'RichRenderer' is not defined

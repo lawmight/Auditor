@@ -1,0 +1,15 @@
+# TheAuditor Indexer + Fidelity System
+
+## Overview
+
+The indexer is a sophisticated multi-language code analysis system that extracts semantic information from source code into a transactionally-safe SQLite database. It processes 7+ languages using a unified extraction and storage pipeline with **built-in data integrity verification**.
+
+**Key Stats:**
+- ~2,000 lines across orchestrator, core, and storage
+- 70+ database tables spanning 10 schema modules
+- 8 domain-specific storage handlers
+- Polymorphic fidelity system supporting both list and dict extraction formats
+
+---
+
+## The "Holy Trio" Fidelity System

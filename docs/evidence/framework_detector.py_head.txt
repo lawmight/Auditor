@@ -1,0 +1,100 @@
+"""Framework detection for various languages and ecosystems."""
+
+import glob
+import json
+import os
+import re
+from pathlib import Path
+from typing import Any
+
+from theauditor.framework_registry import FRAMEWORK_REGISTRY
+from theauditor.indexer.extractors.manifest_parser import ManifestParser
+from theauditor.utils.logging import logger
+
+
+class FrameworkDetector:
+    """Detects frameworks and libraries used in a project."""
+
+    def __init__(self, project_path: Path, exclude_patterns: list[str] = None):
+        """Initialize detector with project path."""
+        self.project_path = Path(project_path)
+        self.detected_frameworks = []
+        self.deps_cache = None
+        self.exclude_patterns = exclude_patterns or []
+
+        self._cargo_workspace_cache: dict[str, dict] = {}
+
+        self._ignored_dirs = frozenset(
+            {
+                "node_modules",
+                "venv",
+                ".venv",
+                ".auditor_venv",
+                "vendor",
+                "dist",
+                "build",
+                "__pycache__",
+                ".git",
+                ".tox",
+                ".pytest_cache",
+                ".mypy_cache",
+                ".ruff_cache",
+            }
+        )
+
+    def _should_skip(self, relative_path: Path) -> bool:
+        """Centralized ignore logic for path filtering.
+
+        Returns True if the path should be skipped (is in ignored directory
+        or matches exclude patterns).
+        """
+        parts = relative_path.parts
+
+        if not self._ignored_dirs.isdisjoint(parts):
+            return True
+
+        if self.exclude_patterns:
+            path_str = relative_path.as_posix()
+            for pattern in self.exclude_patterns:
+                if pattern.endswith("/"):
+                    dir_pattern = pattern.rstrip("/")
+                    if path_str.startswith(dir_pattern + "/"):
+                        return True
+                elif "*" in pattern:
+                    from fnmatch import fnmatch
+
+                    if fnmatch(path_str, pattern):
+                        return True
+                elif path_str == pattern:
+                    return True
+
+        return False
+
+    def detect_all(self) -> list[dict[str, Any]]:
+        """Detect all frameworks in the project."""
+        self.detected_frameworks = []
+
+        self._load_deps_cache()
+
+        self._detect_from_manifests()
+
+        self._detect_from_workspaces()
+
+        manifest_frameworks = {}
+        for fw in self.detected_frameworks:
+            key = (fw["framework"], fw["language"])
+            manifest_frameworks[key] = fw["version"]
+
+        self._check_framework_files()
+
+        for fw in self.detected_frameworks:
+            if fw["version"] == "unknown" and fw["source"] == "framework_files":
+                key = (fw["framework"], fw["language"])
+
+                if key in manifest_frameworks:
+                    fw["version"] = manifest_frameworks[key]
+                    fw["source"] = f"{fw['source']} (version from manifest)"
+
+                elif self.deps_cache and fw["framework"] in self.deps_cache:
+                    cached_dep = self.deps_cache[fw["framework"]]
+                    manager = cached_dep.get("manager", "")

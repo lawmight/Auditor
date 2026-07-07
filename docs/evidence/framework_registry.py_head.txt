@@ -1,0 +1,100 @@
+"""Registry of framework detection patterns and test framework configurations."""
+
+FRAMEWORK_REGISTRY = {
+    "django": {
+        "language": "python",
+        "detection_sources": {
+            "pyproject.toml": [
+                ["project", "dependencies"],
+                ["tool", "poetry", "dependencies"],
+                ["tool", "poetry", "group", "*", "dependencies"],
+                ["tool", "pdm", "dependencies"],
+                ["tool", "setuptools", "install_requires"],
+                ["project", "optional-dependencies", "*"],
+            ],
+            "requirements.txt": "line_search",
+            "requirements-dev.txt": "line_search",
+            "setup.py": "content_search",
+            "setup.cfg": ["options", "install_requires"],
+        },
+        "import_patterns": ["from django", "import django"],
+        "file_markers": ["manage.py", "wsgi.py"],
+    },
+    "flask": {
+        "language": "python",
+        "detection_sources": {
+            "pyproject.toml": [
+                ["project", "dependencies"],
+                ["tool", "poetry", "dependencies"],
+                ["tool", "poetry", "group", "*", "dependencies"],
+                ["tool", "pdm", "dependencies"],
+                ["project", "optional-dependencies", "*"],
+            ],
+            "requirements.txt": "line_search",
+            "requirements-dev.txt": "line_search",
+            "setup.py": "content_search",
+            "setup.cfg": ["options", "install_requires"],
+        },
+        "import_patterns": ["from flask", "import flask"],
+    },
+    "fastapi": {
+        "language": "python",
+        "detection_sources": {
+            "pyproject.toml": [
+                ["project", "dependencies"],
+                ["tool", "poetry", "dependencies"],
+                ["tool", "poetry", "group", "*", "dependencies"],
+                ["tool", "pdm", "dependencies"],
+                ["project", "optional-dependencies", "*"],
+            ],
+            "requirements.txt": "line_search",
+            "requirements-dev.txt": "line_search",
+            "setup.py": "content_search",
+            "setup.cfg": ["options", "install_requires"],
+        },
+        "import_patterns": ["from fastapi", "import fastapi"],
+    },
+    "pyramid": {
+        "language": "python",
+        "detection_sources": {
+            "pyproject.toml": [
+                ["project", "dependencies"],
+                ["tool", "poetry", "dependencies"],
+                ["tool", "poetry", "group", "*", "dependencies"],
+                ["tool", "pdm", "dependencies"],
+                ["project", "optional-dependencies", "*"],
+            ],
+            "requirements.txt": "line_search",
+            "requirements-dev.txt": "line_search",
+            "setup.py": "content_search",
+            "setup.cfg": ["options", "install_requires"],
+        },
+        "import_patterns": ["from pyramid", "import pyramid"],
+    },
+    "tornado": {
+        "language": "python",
+        "detection_sources": {
+            "pyproject.toml": [
+                ["project", "dependencies"],
+                ["tool", "poetry", "dependencies"],
+                ["tool", "poetry", "group", "*", "dependencies"],
+                ["tool", "pdm", "dependencies"],
+                ["project", "optional-dependencies", "*"],
+            ],
+            "requirements.txt": "line_search",
+            "requirements-dev.txt": "line_search",
+            "setup.py": "content_search",
+            "setup.cfg": ["options", "install_requires"],
+        },
+        "import_patterns": ["from tornado", "import tornado"],
+    },
+    "bottle": {
+        "language": "python",
+        "detection_sources": {
+            "pyproject.toml": [
+                ["project", "dependencies"],
+                ["tool", "poetry", "dependencies"],
+                ["tool", "poetry", "group", "*", "dependencies"],
+                ["tool", "pdm", "dependencies"],
+                ["project", "optional-dependencies", "*"],
+            ],

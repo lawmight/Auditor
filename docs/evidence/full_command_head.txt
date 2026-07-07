@@ -1,0 +1,120 @@
+"""Run complete audit pipeline.
+
+2025 Modern: Uses asyncio for parallel execution.
+"""
+
+import asyncio
+import sqlite3
+import sys
+from pathlib import Path
+
+import click
+from rich.panel import Panel
+from rich.text import Text
+
+from theauditor.cli import RichCommand
+from theauditor.pipeline.ui import console, print_status_panel
+from theauditor.utils.constants import ExitCodes
+from theauditor.utils.error_handler import handle_exceptions
+
+
+def _get_indexer_errors(db_path: Path, limit: int = 5) -> list[tuple[str, str]]:
+    """Fetch indexer errors from database.
+
+    Returns list of (file, short_message) tuples.
+    """
+    if not db_path.exists():
+        return []
+
+    try:
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+            SELECT file, message FROM findings_consolidated
+            WHERE tool = 'indexer'
+            ORDER BY severity DESC, file
+            LIMIT ?
+            """,
+            (limit,),
+        )
+        rows = cursor.fetchall()
+        conn.close()
+
+        results = []
+        for file_path, message in rows:
+            # Extract just the error type, not the full path
+            short_msg = message
+            if ":" in message:
+                # "Parse Error: FATAL: Failed to parse C:\...: Python syntax error: invalid syntax"
+                # -> "Python syntax error: invalid syntax"
+                parts = message.split(":")
+                if len(parts) >= 2:
+                    short_msg = parts[-1].strip()
+            results.append((file_path, short_msg))
+        return results
+    except Exception:
+        return []
+
+
+def print_audit_complete_panel(
+    total_phases: int,
+    failed_phases: int,
+    phases_with_warnings: int,
+    elapsed_time: float,
+    index_only: bool = False,
+) -> None:
+    """Print the AUDIT COMPLETE panel with styled border."""
+    minutes = elapsed_time / 60
+
+    if index_only:
+        if failed_phases == 0:
+            title = "INDEX COMPLETE"
+            status_line = f"All {total_phases} phases successful"
+            detail = f"Total time: {elapsed_time:.1f}s ({minutes:.1f} minutes)"
+            border_style = "green"
+        else:
+            title = "INDEX INCOMPLETE"
+            status_line = f"{failed_phases} phases failed"
+            detail = f"Total time: {elapsed_time:.1f}s ({minutes:.1f} minutes)"
+            border_style = "yellow"
+    elif failed_phases == 0 and phases_with_warnings == 0:
+        title = "AUDIT COMPLETE"
+        status_line = f"All {total_phases} phases successful"
+        detail = f"Total time: {elapsed_time:.1f}s ({minutes:.1f} minutes)"
+        border_style = "green"
+    elif phases_with_warnings > 0 and failed_phases == 0:
+        title = "AUDIT COMPLETE"
+        status_line = f"{phases_with_warnings} phases completed with warnings"
+        detail = f"Total time: {elapsed_time:.1f}s ({minutes:.1f} minutes)"
+        border_style = "yellow"
+    else:
+        title = "AUDIT COMPLETE"
+        status_line = f"{failed_phases} phases failed, {phases_with_warnings} with warnings"
+        detail = f"Total time: {elapsed_time:.1f}s ({minutes:.1f} minutes)"
+        border_style = "yellow"
+
+    panel = Panel(
+        Text.assemble(
+            (status_line + "\n", "bold " + border_style),
+            (detail, "dim"),
+        ),
+        title=f"[bold]{title}[/bold]",
+        border_style=border_style,
+        expand=False,
+    )
+    console.print(panel)
+
+
+@click.command(cls=RichCommand)
+@handle_exceptions
+@click.option("--root", default=".", help="Root directory to analyze")
+@click.option("--quiet", is_flag=True, help="Minimal output")
+@click.option(
+    "--exclude-self",
+    is_flag=True,
+    hidden=True,
+    help="Exclude TheAuditor's own files (for self-testing)",
+)
+@click.option("--offline", is_flag=True, help="Skip network operations (deps, docs)")
+@click.option(

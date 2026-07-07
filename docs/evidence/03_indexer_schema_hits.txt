@@ -1,0 +1,15 @@
+theauditor/indexer/schema.py
+theauditor/indexer/schemas
+theauditor/indexer/schemas/graphs_schema.py
+theauditor/indexer/schemas/core_schema.py
+theauditor/indexer/schemas/rust_schema.py
+theauditor/indexer/schemas/graphql_schema.py
+theauditor/indexer/schemas/python_schema.py
+theauditor/indexer/schemas/go_schema.py
+theauditor/indexer/schemas/security_schema.py
+theauditor/indexer/schemas/infrastructure_schema.py
+theauditor/indexer/schemas/planning_schema.py
+theauditor/indexer/schemas/frameworks_schema.py
+theauditor/indexer/schemas/node_schema.py
+theauditor/indexer/schemas/bash_schema.py
+theauditor/indexer/extractors/sql.py

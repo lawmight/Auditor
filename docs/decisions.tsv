@@ -1,0 +1,30 @@
+ts	phase	decision	why	evidence	result
+2026-07-07T21:55:43Z	frame	framed review as docs-only 20-seam swarm	falsifiable done predicate needs independent evidence files	docs/PLAYBOOK.md	framed
+2026-07-07T21:55:43Z	harness	built owned-file seams instead of shared mutable docs	separate-before-serializing: each agent owns one file	docs/PLAYBOOK.md	designed
+2026-07-07T21:56:29Z	harness	built collect_evidence.py lever	build-the-lever: deterministic rerunnable evidence for all seams	docs/collect_evidence.py	PASS on first run pending
+2026-07-07T21:58:58Z	harness	built collect_evidence.py + generate_findings.py + verify_findings.py	build-the-lever and encode-lessons: rerunnable gates	docs/verify_findings.py	PASS
+2026-07-07T21:58:58Z	agent-01	completed seam 01-overview-packaging.md	independent owned finding file	docs/agents/01-overview-packaging.md	VERIFIED
+2026-07-07T21:58:58Z	agent-02	completed seam 02-cli-commands.md	independent owned finding file	docs/agents/02-cli-commands.md	INCONCLUSIVE
+2026-07-07T21:58:58Z	agent-03	completed seam 03-indexer.md	independent owned finding file	docs/agents/03-indexer.md	VERIFIED
+2026-07-07T21:58:58Z	agent-04	completed seam 04-ast-extractors.md	independent owned finding file	docs/agents/04-ast-extractors.md	VERIFIED
+2026-07-07T21:58:58Z	agent-05	completed seam 05-taint.md	independent owned finding file	docs/agents/05-taint.md	INCONCLUSIVE
+2026-07-07T21:58:58Z	agent-06	completed seam 06-rules.md	independent owned finding file	docs/agents/06-rules.md	VERIFIED
+2026-07-07T21:58:58Z	agent-07	completed seam 07-graph.md	independent owned finding file	docs/agents/07-graph.md	VERIFIED
+2026-07-07T21:58:58Z	agent-08	completed seam 08-fce.md	independent owned finding file	docs/agents/08-fce.md	INCONCLUSIVE
+2026-07-07T21:58:58Z	agent-09	completed seam 09-pipeline.md	independent owned finding file	docs/agents/09-pipeline.md	VERIFIED
+2026-07-07T21:58:58Z	agent-10	completed seam 10-linters.md	independent owned finding file	docs/agents/10-linters.md	INCONCLUSIVE
+2026-07-07T21:58:58Z	agent-11	completed seam 11-context.md	independent owned finding file	docs/agents/11-context.md	INCONCLUSIVE
+2026-07-07T21:58:58Z	agent-12	completed seam 12-planning-refactor.md	independent owned finding file	docs/agents/12-planning-refactor.md	VERIFIED
+2026-07-07T21:58:58Z	agent-13	completed seam 13-framework-detection.md	independent owned finding file	docs/agents/13-framework-detection.md	VERIFIED
+2026-07-07T21:58:58Z	agent-14	completed seam 14-iac.md	independent owned finding file	docs/agents/14-iac.md	VERIFIED
+2026-07-07T21:58:58Z	agent-15	completed seam 15-machinel.md	independent owned finding file	docs/agents/15-machinel.md	INCONCLUSIVE
+2026-07-07T21:58:58Z	agent-16	completed seam 16-zero-fallback.md	independent owned finding file	docs/agents/16-zero-fallback.md	INCONCLUSIVE
+2026-07-07T21:58:58Z	agent-17	completed seam 17-tests.md	independent owned finding file	docs/agents/17-tests.md	VERIFIED
+2026-07-07T21:58:58Z	agent-18	completed seam 18-ci.md	independent owned finding file	docs/agents/18-ci.md	VERIFIED
+2026-07-07T21:58:58Z	agent-19	completed seam 19-security.md	independent owned finding file	docs/agents/19-security.md	INCONCLUSIVE
+2026-07-07T21:58:58Z	agent-20	completed seam 20-docs-architecture.md	independent owned finding file	docs/agents/20-docs-architecture.md	VERIFIED
+2026-07-07T21:58:58Z	verify	ran verify_findings.py after all 20 files	prove-it-works against docs artifact	docs/verify_findings.py	PASS
+2026-07-07T21:59:38Z	frame	no Task tool so ran 20 owned seams in-process	never-block / guard-context: same contract as swarm without spawn API	docs/PLAYBOOK.md	adapted
+2026-07-07T21:59:38Z	verify	cross-model trail review unavailable (no Task spawn)	show-me-your-work requires other model family; self-audit of log done instead	docs/decisions.tsv	INCONCLUSIVE
+2026-07-07T21:59:53Z	phase-e	wrote ATTENTION.md self-audit of trail	show-me-your-work audit + missing cross-model flagged	docs/ATTENTION.md	logged
+2026-07-07T22:00:35Z	phase-e	force-added docs/ despite root gitignore	repo gitignores docs/; review deliverable must land in PR	.gitignore:74	documented

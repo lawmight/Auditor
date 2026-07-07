@@ -1,0 +1,80 @@
+"""Core taint analysis engine."""
+
+import json
+import sqlite3
+import sys
+from collections import defaultdict
+from pathlib import Path
+from typing import TYPE_CHECKING, Any
+
+from theauditor.utils.logging import logger
+
+if TYPE_CHECKING:
+    from .memory_cache import MemoryCache
+
+from theauditor.indexer.schema import build_query
+from theauditor.taint.fidelity import (
+    create_analysis_manifest,
+    create_db_manifest,
+    create_db_receipt,
+    create_discovery_manifest,
+    reconcile_taint_fidelity,
+)
+
+
+class TaintRegistry:
+    """Single Source of Truth for taint patterns with O(1) metadata lookup.
+
+    Replaces hardcoded pattern lists in discovery.py and taint_path.py with
+    database-driven lookups that compute vulnerability types at registration time.
+    """
+
+    CATEGORY_TO_VULN_TYPE: dict[str, str] = {
+        "xss": "Cross-Site Scripting (XSS)",
+        "sql": "SQL Injection",
+        "nosql": "NoSQL Injection",
+        "command": "Command Injection",
+        "code_injection": "Code Injection",
+        "path": "Path Traversal",
+        "ldap": "LDAP Injection",
+        "ssrf": "Server-Side Request Forgery (SSRF)",
+        "proto": "Prototype Pollution",
+        "log": "Log Injection",
+        "redirect": "Open Redirect",
+        "crypto": "Weak Cryptography",
+        "http_request": "Unvalidated Input",
+        "user_input": "Unvalidated Input",
+        "orm": "ORM Injection",
+        "template": "Template Injection",
+        "deserialization": "Insecure Deserialization",
+        "xxe": "XML External Entity (XXE)",
+        "unknown": "Data Exposure",
+    }
+
+    def __init__(self):
+        self.sources: dict[str, dict[str, list[str]]] = {}
+        self.sinks: dict[str, dict[str, list[str]]] = {}
+        self.sanitizers: dict[str, list[str]] = {}
+
+        self.sink_metadata: dict[str, dict[str, Any]] = {}
+        self.source_metadata: dict[str, dict[str, Any]] = {}
+
+    def register_source(self, pattern: str, category: str, language: str):
+        """Register a taint source pattern with metadata for O(1) lookup."""
+        if language not in self.sources:
+            self.sources[language] = {}
+        if category not in self.sources[language]:
+            self.sources[language][category] = []
+        if pattern not in self.sources[language][category]:
+            self.sources[language][category].append(pattern)
+
+        self.source_metadata[pattern] = {
+            "category": category,
+            "language": language,
+            "vulnerability_type": "Unvalidated Input",
+        }
+
+    def register_sink(self, pattern: str, category: str, language: str):
+        """Register a taint sink and pre-calculate its vulnerability type."""
+        if language not in self.sinks:
+            self.sinks[language] = {}

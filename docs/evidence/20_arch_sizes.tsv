@@ -1,0 +1,13 @@
+file	lines
+01_indexer.md	125
+02_ast_extractors.md	126
+03_graph.md	148
+04_taint.md	163
+05_fce.md	158
+06_rules.md	183
+07_linters.md	160
+08_machinel.md	183
+09_pipeline.md	204
+10_context.md	203
+11_session.md	178
+12_commands.md	166

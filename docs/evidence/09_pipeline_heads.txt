@@ -1,0 +1,271 @@
+===theauditor/pipeline/__init__.py lines=29===
+"""Pipeline execution infrastructure."""
+
+from .pipelines import run_full_pipeline
+from .renderer import RichRenderer
+from .structures import PhaseResult, PipelineContext, TaskStatus
+from .ui import (
+    AUDITOR_THEME,
+    console,
+    print_error,
+    print_header,
+    print_status_panel,
+    print_success,
+    print_warning,
+)
+
+__all__ = [
+    "run_full_pipeline",
+    "PhaseResult",
+    "TaskStatus",
+    "PipelineContext",
+    "RichRenderer",
+    "AUDITOR_THEME",
+    "console",
+    "print_header",
+    "print_error",
+    "print_warning",
+    "print_success",
+    "print_status_panel",
+]
+===theauditor/pipeline/events.py lines=35===
+"""Event system for pipeline observers."""
+
+from typing import Protocol
+
+
+class PipelineObserver(Protocol):
+    """Observer interface for pipeline events."""
+
+    def on_phase_start(self, name: str, index: int, total: int) -> None:
+        """Called when a phase begins."""
+        ...
+
+    def on_phase_complete(self, name: str, elapsed: float) -> None:
+        """Called when a phase succeeds."""
+        ...
+
+    def on_phase_failed(self, name: str, error: str, exit_code: int) -> None:
+        """Called when a phase fails."""
+        ...
+
+    def on_stage_start(self, stage_name: str, stage_num: int) -> None:
+        """Called when a logical stage (1-4) begins."""
+        ...
+
+    def on_log(self, message: str, is_error: bool = False) -> None:
+        """Called for generic log messages (e.g., from sub-tools)."""
+        ...
+
+    def on_parallel_track_start(self, track_name: str) -> None:
+        """Called when a parallel track (A/B/C) starts."""
+        ...
+
+    def on_parallel_track_complete(self, track_name: str, elapsed: float) -> None:
+        """Called when a parallel track finishes."""
+        ...
+===theauditor/pipeline/journal.py lines=329===
+"""Journal system for tracking audit execution history."""
+
+import json
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any
+
+from theauditor.utils.logging import logger
+
+
+class JournalWriter:
+    """Writes execution events to persistent journal.ndjson file.
+
+    The journal lives in .pf/ml/ which is preserved across runs (not archived).
+    Events accumulate over time, providing a complete audit trail.
+    """
+
+    def __init__(self, journal_path: str = "./.pf/ml/journal.ndjson"):
+        """Initialize journal writer.
+
+        Raises:
+            OSError: If journal file cannot be opened (permissions, disk space, etc.)
+        """
+        self.journal_path = Path(journal_path).resolve()
+        self.session_id = datetime.now(UTC).strftime("%Y%m%d_%H%M%S")
+
+        self.journal_path.parent.mkdir(parents=True, exist_ok=True)
+
+        self.file_handle = open(self.journal_path, "a", encoding="utf-8", buffering=1)  # noqa: SIM115
+
+    def write_event(self, event_type: str, data: dict[str, Any]) -> bool:
+        """Write an event to the journal.
+
+        Trust the state - if we're here, file_handle exists (enforced by __init__).
+        If write fails, let it crash. Silent journal failures corrupt audit trail.
+        """
+        event = {
+            "timestamp": datetime.now(UTC).isoformat(),
+            "session_id": self.session_id,
+            "event_type": event_type,
+===theauditor/pipeline/pipelines.py lines=1753===
+"""Pipeline execution module for TheAuditor."""
+
+import asyncio
+import os
+import platform
+import re
+import signal
+import sys
+import time
+from pathlib import Path
+from typing import Any
+
+from theauditor.utils.logging import logger
+
+from .renderer import RichRenderer
+from .structures import PhaseResult, TaskStatus
+
+IS_WINDOWS = platform.system() == "Windows"
+
+
+COMMAND_TIMEOUTS = {
+    "index": 600,
+    "detect-frameworks": 180,
+    "deps": 1200,
+    "docs": 600,
+    "workset": 180,
+    "lint": 600,
+    "detect-patterns": 1800,
+    "graph": 600,
+    "terraform": 600,
+    "taint": 1800,
+    "fce": 900,
+    "learn": 300,
+}
+
+
+DEFAULT_TIMEOUT = int(os.environ.get("THEAUDITOR_TIMEOUT_SECONDS", "900"))
+
+
+SECURITY_TOOLS = frozenset(
+===theauditor/pipeline/renderer.py lines=239===
+"""Rich-based pipeline renderer with parallel track buffering."""
+
+import re
+import sys
+import time
+from pathlib import Path
+from typing import TextIO
+
+from rich.console import Console, ConsoleOptions, RenderResult
+from rich.live import Live
+from rich.table import Table
+from rich.text import Text
+
+from theauditor.utils.logging import logger, restore_stderr_sink, swap_to_rich_sink
+
+from .events import PipelineObserver
+from .structures import PhaseResult
+from .ui import console as shared_console
+
+_NUMBER_COLORIZE_RE = re.compile(r"(?<!\x1b\[)(\d+)(?!\d*m)")
+
+
+class DynamicTable:
+    """Wrapper that builds a fresh table on each Rich render cycle."""
+
+    def __init__(self, renderer: RichRenderer):
+        self.renderer = renderer
+
+    def __rich_console__(self, console: Console, options: ConsoleOptions) -> RenderResult:
+        """Called by Rich on each refresh - return fresh table with live timers."""
+        yield self.renderer._build_live_table()
+
+
+class RichRenderer(PipelineObserver):
+    """Live dashboard using Rich library."""
+
+    def __init__(self, quiet: bool = False, log_file: Path | None = None):
+        self.quiet = quiet
+        self.log_file: TextIO | None = None
+        if log_file:
+===theauditor/pipeline/structures.py lines=51===
+"""Data contracts for pipeline execution."""
+
+from dataclasses import asdict, dataclass
+from enum import Enum
+from pathlib import Path
+from typing import Any
+
+
+class TaskStatus(Enum):
+    """Status of a pipeline phase."""
+
+    PENDING = "pending"
+    RUNNING = "running"
+    SUCCESS = "success"
+    FAILED = "failed"
+    SKIPPED = "skipped"
+
+
+@dataclass
+class PhaseResult:
+    """Result of a single pipeline phase execution."""
+
+    name: str
+    status: TaskStatus
+    elapsed: float
+    stdout: str
+    stderr: str
+    exit_code: int = 0
+    findings_count: int = 0
+
+    def to_dict(self) -> dict[str, Any]:
+        """Convert to JSON-serializable dictionary."""
+        d = asdict(self)
+        d["status"] = self.status.value
+        return d
+
+    @property
+    def success(self) -> bool:
+        """True if phase completed successfully."""
+        return self.status == TaskStatus.SUCCESS
+===theauditor/pipeline/ui.py lines=72===
+"""Central UI handler for TheAuditor."""
+
+import sys
+
+from rich.console import Console
+from rich.panel import Panel
+from rich.text import Text
+from rich.theme import Theme
+
+AUDITOR_THEME = Theme(
+    {
+        "info": "bold cyan",
+        "warning": "bold yellow",
+        "error": "bold red",
+        "success": "bold green",
+        "critical": "bold red",
+        "high": "bold yellow",
+        "medium": "bold blue",
+        "low": "cyan",
+        "cmd": "bold magenta",
+        "path": "bold cyan",
+        "dim": "dim white",
+    }
+)
+
+
+console = Console(theme=AUDITOR_THEME, force_terminal=sys.stdout.isatty())
+err_console = Console(theme=AUDITOR_THEME, stderr=True, force_terminal=sys.stderr.isatty())
+
+
+def print_header(title: str) -> None:
+    """Print a styled section header with horizontal rules."""
+    console.rule(f"[bold]{title}[/bold]")
+
+
+def print_error(msg: str) -> None:
+    """Print an error message in red."""
+    console.print(f"[error]ERROR:[/error] {msg}")
+
+
