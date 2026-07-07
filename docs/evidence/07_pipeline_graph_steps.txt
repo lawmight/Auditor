@@ -1,0 +1,8 @@
+source: theauditor/pipeline/pipelines.py command_order
+534:            ("graph", ["build"]),
+535:            ("graph", ["build-dfg"]),
+540:            ("graph", ["analyze"]),
+541:            ("graph", ["viz", "--view", "full", "--include-analysis", "--out-dir", ".pf/graphs/"]),
+542:            ("graph", ["viz", "--view", "cycles", "--include-analysis", "--out-dir", ".pf/graphs/"]),
+543:            ("graph", ["viz", "--view", "hotspots", "--include-analysis", "--out-dir", ".pf/graphs/"]),
+544:            ("graph", ["viz", "--view", "layers", "--include-analysis", "--out-dir", ".pf/graphs/"]),

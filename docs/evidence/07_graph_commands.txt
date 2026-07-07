@@ -1,0 +1,10 @@
+file: theauditor/commands/graph.py
+group: graph
+subcommands:
+  - build
+  - build-dfg
+  - analyze
+  - hotspots
+  - query
+  - viz
+loc: 1251

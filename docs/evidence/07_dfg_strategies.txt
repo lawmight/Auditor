@@ -1,0 +1,21 @@
+DFGBuilder reads repo_index.db (db_path ctor)
+strategies wired in DFGBuilder.__init__:
+  - PythonOrmStrategy
+  - NodeOrmStrategy
+  - NodeExpressStrategy
+  - InterceptorStrategy
+  - BashPipeStrategy
+  - GoHttpStrategy
+  - GoOrmStrategy
+  - RustTraitStrategy
+  - RustAsyncStrategy
+imports:
+  - bash_pipes -> BashPipeStrategy
+  - go_http -> GoHttpStrategy
+  - go_orm -> GoOrmStrategy
+  - interceptors -> InterceptorStrategy
+  - node_express -> NodeExpressStrategy
+  - node_orm -> NodeOrmStrategy
+  - python_orm -> PythonOrmStrategy
+  - rust_async -> RustAsyncStrategy
+  - rust_traits -> RustTraitStrategy

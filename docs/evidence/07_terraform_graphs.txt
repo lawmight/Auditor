@@ -1,0 +1,8 @@
+terraform/graph.py:13:from ..graph.store import XGraphStore
+terraform/graph.py:43:"""Build Terraform provisioning flow graphs from repo_index.db."""
+terraform/graph.py:51:graphs_db_path = self.db_path.parent / "graphs.db"
+terraform/graph.py:52:self.store = XGraphStore(db_path=str(graphs_db_path))
+terraform/graph.py:269:"graph_type": "terraform_provisioning",
+terraform/graph.py:435:"""Write graph to graphs.db using XGraphStore.save_custom_graph()."""
+terraform/graph.py:472:self.store.save_custom_graph(store_graph, graph_type="terraform_provisioning")
+terraform/graph.py:474:logger.debug("Wrote Terraform provisioning graph to graphs.db")

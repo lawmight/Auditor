@@ -1,0 +1,7 @@
+"""Graph database schema definitions - Used by graphs.db ONLY."""
+GRAPH_TABLES keys: nodes, edges, analysis_results
+1:"""Graph database schema definitions - Used by graphs.db ONLY."""
+6:name="nodes",
+34:name="edges",
+61:name="analysis_results",
+72:GRAPH_TABLES: dict[str, TableSchema] = {
